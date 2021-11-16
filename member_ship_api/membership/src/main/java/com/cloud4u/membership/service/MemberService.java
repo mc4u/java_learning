@@ -27,4 +27,13 @@ public class MemberService {
                 .setOrgId(memberEntity.getOrgId());
     }
 
+    // return the member by member id
+    public MemberInfo GetMember(Long memberId) {
+        MemberEntity memberEntity =  memberRepository.getById(memberId);
+        return new MemberInfo()
+                .setName(memberEntity.getName())
+                .setEmailId(memberEntity.getEmailId())
+                .setOrgId(memberEntity.getOrgId());
+    }
+
 }
