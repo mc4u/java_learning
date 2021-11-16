@@ -31,7 +31,6 @@ public class MemberService {
     public MemberInfo GetMember(Long memberId) {
         MemberEntity memberEntity =  memberRepository.getById(memberId);
         return new MemberInfo()
-                //.setId(memberEntity.getId())
                 .setName(memberEntity.getName())
                 .setEmailId(memberEntity.getEmailId())
                 .setOrgId(memberEntity.getOrgId());
