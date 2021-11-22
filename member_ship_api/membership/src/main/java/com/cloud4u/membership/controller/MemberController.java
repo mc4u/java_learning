@@ -3,10 +3,7 @@ package com.cloud4u.membership.controller;
 import com.cloud4u.membership.domain.dto.MemberInfo;
 import com.cloud4u.membership.service.MemberService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/membership/api")
@@ -17,8 +14,14 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    @PostMapping(value = "registration")
+    @PostMapping(value = "/registration")
     public ResponseEntity<MemberInfo> registration(@RequestBody MemberInfo memberInfo) {
         return ResponseEntity.ok(memberService.register(memberInfo));
+    }
+
+    @GetMapping(value = "/login/{emailId}/{password}")
+    public ResponseEntity<MemberInfo> login(@PathVariable("emailId") String emailId,
+                                            @PathVariable("password") String password) {
+        return ResponseEntity.ok(memberService.login(emailId, password));
     }
 }

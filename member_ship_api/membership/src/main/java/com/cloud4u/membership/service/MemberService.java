@@ -2,9 +2,12 @@ package com.cloud4u.membership.service;
 
 import com.cloud4u.membership.domain.dto.MemberInfo;
 import com.cloud4u.membership.domain.entity.MemberEntity;
+import com.cloud4u.membership.exception.UserNotFoundException;
 import com.cloud4u.membership.util.MemberMapper;
 import com.cloud4u.membership.repo.MemberRepository;
 import org.springframework.stereotype.Service;
+
+import java.nio.file.attribute.UserPrincipalNotFoundException;
 
 @Service
 public class MemberService {
@@ -36,4 +39,12 @@ public class MemberService {
                 .setOrgId(memberEntity.getOrgId());
     }
 
+    public MemberInfo login(String emailId, String password) {
+        return memberRepository.findByEmailIdAndPassword(emailId, password)
+                .map(memberEntity -> new MemberInfo()
+                        .setName(memberEntity.getName())
+                        .setEmailId(memberEntity.getEmailId())
+                        .setOrgId(memberEntity.getOrgId()))
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+    }
 }
