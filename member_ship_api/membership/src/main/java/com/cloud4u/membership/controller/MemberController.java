@@ -21,4 +21,13 @@ public class MemberController {
     public ResponseEntity<MemberInfo> registration(@RequestBody MemberInfo memberInfo) {
         return ResponseEntity.ok(memberService.register(memberInfo));
     }
+    @GetMapping(value = "/login/{emailId}/{password}")
+	public ResponseEntity<MemberInfo> login(@PathVariable("emailId") String emailId , @PathVariable("password") String password) {
+		return ResponseEntity.ok(memberService.login(emailId, password));
+	}
+    
+    @GetMapping(value = "/getMember/{id}")
+	public ResponseEntity<MemberInfo> getMember(@PathVariable("id") Long id) {
+		return ResponseEntity.ok(memberService.getMember(id));
+	}
 }

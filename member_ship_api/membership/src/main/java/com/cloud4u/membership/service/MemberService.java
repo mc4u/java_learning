@@ -26,5 +26,22 @@ public class MemberService {
                 .setEmailId(memberEntity.getEmailId())
                 .setOrgId(memberEntity.getOrgId());
     }
+    
+    public MemberInfo getMember(Long memberId) {
+        MemberEntity memberEntity =  memberRepository.getById(memberId);
+        return new MemberInfo()
+                .setName(memberEntity.getName())
+                .setEmailId(memberEntity.getEmailId())
+                .setOrgId(memberEntity.getOrgId());
+    }
+
+    public MemberInfo login(String emailId, String password) {
+        return memberRepository.findByEmailIdAndPassword(emailId, password)
+                .map(memberEntity -> new MemberInfo()
+                        .setName(memberEntity.getName())
+                        .setEmailId(memberEntity.getEmailId())
+                        .setOrgId(memberEntity.getOrgId()))
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+    }
 
 }
