@@ -6,7 +6,7 @@
           <input matInput type="text" placeholder="name" formControlName="name">
        </mat-form-field>
       <mat-form-field>
-        <input matInput type="email" placeholder="email" formControlName="email">
+        <input matInput type="emailId" placeholder="emailId" formControlName="emailId">
       </mat-form-field>
       <mat-form-field>
         <input matInput type="password" placeholder="password" formControlName="password">
@@ -14,6 +14,8 @@
       <mat-form-field>
         <input matInput type="text" placeholder="orgId" formControlName="orgId">
       </mat-form-field>
+
+      <button mat-raised-button color="primary" (click)="registration()">Register</button>
     </form>
 
   </mat-card-content>

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/membership/api")
+@CrossOrigin({"https://cloud4u-trainig-ui.s3.ap-south-1.amazonaws.com/", "http://localhost:4200"})
 public class MemberController {
     private final MemberService memberService;
 
