@@ -1,17 +1,28 @@
 package com.cloud4u.membership.service;
 
 import com.cloud4u.membership.domain.dto.MemberInfo;
+import com.cloud4u.membership.domain.entity.MemberDetailEntity;
 import com.cloud4u.membership.domain.entity.MemberEntity;
+import com.cloud4u.membership.domain.entity.MemberShipDetailEntity;
 import com.cloud4u.membership.exception.UserNotFoundException;
 import com.cloud4u.membership.util.MemberMapper;
 import com.cloud4u.membership.repo.MemberRepository;
+import com.cloud4u.membership.repo.MembersDetailRepositry;
+import com.cloud4u.membership.repo.MembershipDetailRepositry;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.attribute.UserPrincipalNotFoundException;
+import java.util.List;
 
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;
+    @Autowired
+    private  MembershipDetailRepositry membershipDetailRepositry;
+    @Autowired
+    private MembersDetailRepositry membersDetailRepositry;
 
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
@@ -47,4 +58,20 @@ public class MemberService {
                         .setOrgId(memberEntity.getOrgId()))
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
     }
+
+	public MemberDetailEntity getMemberDetails(long member_id) {
+	
+		return membersDetailRepositry.findById(member_id).get();
+	}
+
+
+	public List<MemberShipDetailEntity> getNotification() {
+		
+		return membershipDetailRepositry.findAll();
+	}
+
+	public List<MemberShipDetailEntity> listAll() {
+		
+		return membershipDetailRepositry.findAll();
+	}
 }
