@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/membership/api")
-//@CrossOrigin({"https://cloud4u-trainig-ui.s3.ap-south-1.amazonaws.com/", "http://localhost:4200"})
+@CrossOrigin({"https://cloud4u-trainig-ui.s3.ap-south-1.amazonaws.com/", "http://localhost:4200"})
 public class MemberController {
 	private final MemberService memberService;
 
@@ -83,19 +83,19 @@ public class MemberController {
 
 		return notificationList;
 	}
-	/*
-	 * @GetMapping(value = "/reciept") public void exportToPDF(HttpServletResponse
-	 * response) throws DocumentException, IOException {
-	 * response.setContentType("application/pdf"); DateFormat dateFormatter = new
-	 * SimpleDateFormat("yyyy-MM-dd_HH:mm:ss"); String currentDateTime =
-	 * dateFormatter.format(new Date());
-	 * 
-	 * String headerKey = "Content-Disposition"; String headerValue =
-	 * "attachment; filename=users_" + currentDateTime + ".pdf";
-	 * response.setHeader(headerKey, headerValue); List<MemberShipDetailEntity>
-	 * listUsers = memberService.listAll();
-	 * 
-	 * UserPDFExporter exporter = new UserPDFExporter(listUsers);
-	 * //exporter.export(response);               }
-	 */
+    @GetMapping(value = "/reciept/{member_id}") public void exportToPDF(@PathVariable("member_id") long member_id,HttpServletResponse
+	 response) throws DocumentException, IOException {
+	  response.setContentType("application/pdf"); DateFormat dateFormatter = new
+	  SimpleDateFormat("yyyy-MM-dd_HH:mm:ss"); String currentDateTime =
+	  dateFormatter.format(new Date());
+	  
+	  String headerKey = "Content-Disposition"; String headerValue =
+	  "attachment; filename=users_" + currentDateTime + ".pdf";
+	  response.setHeader(headerKey, headerValue); 
+	  MemberDetailEntity listUsers = memberService.getMemberDetails(member_id);
+	  MemberShipDetailEntity detailEntity=memberService.getMemberById(member_id);
+	  UserPDFExporter exporter = new UserPDFExporter(listUsers,detailEntity);
+	  exporter.export(response);
+	  }
+	 
 }

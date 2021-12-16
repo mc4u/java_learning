@@ -74,4 +74,8 @@ public class MemberService {
 		
 		return membershipDetailRepositry.findAll();
 	}
+   public MemberShipDetailEntity getMemberById(long member_id) {
+		
+		return membershipDetailRepositry.findById(member_id).get();
+	}
 }
