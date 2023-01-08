@@ -51,4 +51,7 @@ public class MemberInfo {
         this.orgId = orgId;
         return this;
     }
+
+
+    public String xyz;
 }
